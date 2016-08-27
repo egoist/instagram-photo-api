@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "get-instagram-photo": "0.0.1",
-    "koa": "^1.2.1"
+    "koa": "^1.2.1",
+    "node-fetch": "^1.6.0"
   }
 }

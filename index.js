@@ -2,6 +2,7 @@
 const koa = require('koa')
 const app = koa()
 const getPhoto = require('get-instagram-photo')
+const fetch = require('node-fetch')
 
 app.use(function * () {
   let {url} = this.request
@@ -21,19 +22,17 @@ app.use(function * () {
   }
 
   url = url.substr(1)
-
-  try {
-    if (/https?:\/\//.test(url)) {
-      this.body = {
-        url: yield getPhoto(url)
-      }
-    } else {
-      this.body = {
-        url: yield getPhoto(`https://www.instagram.com/p/${url}/`)
-      }
-    }
-  } catch (e) {
-    this.body = e.message
+  url = /https?:\/\//.test(url) ? url : `https://www.instagram.com/p/${url}/`
+  const api = `https://api.instagram.com/oembed/?url=${url}`
+  const imageURL = yield fetch(api)
+    .then(data => data.json())
+    .then(data => data && data.thumbnail_url)
+  if (imageURL) {
+    const res = yield fetch(imageURL)
+    this.type = res.headers._headers['content-type'][0]
+    this.body = res.body
+  } else {
+    this.body = 'not found'
   }
 })
 
