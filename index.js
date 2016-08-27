@@ -1,7 +1,6 @@
 'use strict'
 const koa = require('koa')
 const app = koa()
-const getPhoto = require('get-instagram-photo')
 const fetch = require('node-fetch')
 
 app.use(function * () {
