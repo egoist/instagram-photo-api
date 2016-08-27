@@ -1,3 +1,3 @@
-# Instgram-Photo-API
+# Instagram-Photo-API
 
 https://insta.now.sh/
