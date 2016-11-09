@@ -47,6 +47,7 @@ app.use(function * () {
     this.type = res.headers._headers['content-type'][0]
     this.body = res.body
   } else {
+    this.status = 404
     this.body = 'not found'
   }
 })
