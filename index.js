@@ -18,9 +18,16 @@ app.use(cash({
 }))
 
 app.use(function * () {
-  if (yield this.cashed()) return
+  if (yield this.cashed()) {
+    return
+  }
 
   let {url} = this.request
+
+  if (url === '/favicon.ico') {
+    this.status = 404
+    return
+  }
 
   if (url === '/' || url.length < 6) {
     this.body = `
