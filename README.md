@@ -1,3 +1,3 @@
 # Instagram-Photo-API
 
-http://instagram-api.egoistian.com/
+https://insta-api.now.sh/
