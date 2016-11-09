@@ -1,9 +1,25 @@
 'use strict'
 const koa = require('koa')
 const app = koa()
+const cash = require('koa-cash')
 const fetch = require('node-fetch')
 
+const cache = require('lru-cache')({
+  maxAge: 86400 * 365
+})
+
+app.use(cash({
+  get (key, maxAge) {
+    return cache.get(key)
+  },
+  set (key, value) {
+    cache.set(key, value)
+  }
+}))
+
 app.use(function * () {
+  if (yield this.cashed()) return
+
   let {url} = this.request
 
   if (url === '/' || url.length < 6) {

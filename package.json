@@ -12,6 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "koa": "^1.2.1",
+    "koa-cash": "^2.1.0",
+    "lru-cache": "^4.0.1",
     "node-fetch": "^1.6.0"
   }
 }
